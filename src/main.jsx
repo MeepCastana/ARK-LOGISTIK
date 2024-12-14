@@ -6,6 +6,6 @@ import Landing from "./landing.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Landing />
+    <App />
   </StrictMode>
 );
