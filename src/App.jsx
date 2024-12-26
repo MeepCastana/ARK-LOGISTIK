@@ -1,29 +1,40 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import Header from "./header";
+import Colors from "./colors";
+import ParcelEstimator from "./estimator";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // useSmoothScroll(); // Enable smooth scrolling
 
   return (
     <>
-      <div>
-        <a href="/" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="/" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div data-scroll-container className="flex-col w-full min-h-screen">
+        {/* Sticky Header */}
+        <div className="sticky top-5 z-50 w-full justify-center flex">
+          <Header />
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex flex-col space-y-8 p-10">
+          <div className=" bg-purple-300 flex items-center justify-center">
+            <ParcelEstimator />
+          </div>
+          <div className="w-[15rem] h-[50vh] bg-blue-300 flex items-center justify-center">
+            <Colors />
+          </div>
+
+          <div className="w-[15rem] h-[50vh] bg-red-300 flex items-center justify-center">
+            <Colors />
+          </div>
+
+          <div className="w-[15rem] h-[50vh] bg-green-300 flex items-center justify-center">
+            <Colors />
+          </div>
+
+          <div className="w-[15rem] h-[50vh] bg-yellow-300 flex items-center justify-center">
+            <Colors />
+          </div>
+        </div>
       </div>
-      <h1>BaiMeep + Sandu</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>Edit and save to test</p>
-      </div>
-      <p className="read-the-docs">Click to learn more </p>
     </>
   );
 }
