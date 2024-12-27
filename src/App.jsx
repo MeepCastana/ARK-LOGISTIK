@@ -18,24 +18,24 @@ function App() {
           <Header />
         </div>
         <div className="flex justify-around items-center xs:scale-50 sm:scale-100 transition-all duration-500 ease-in-out xs:mr-[20rem] md:mr-0">
-          <div className="w-[35rem] ml-[5rem] xs:mt-0 sm:mt-[5rem] space-y-12 ">
+          <div className="w-[35rem] ml-[5rem] xs:mt-0 sm:mt-[5rem] sm:space-y-12 xs:space-y-24 xs:scale-[1.3] sm:scale-100">
             <span className="text-[#0a150f] text-3xl bg-[#f7fbf8] p-2 rounded-xl text-nowrap font-black ">
               Transport de colete, mai simplu mai usor
             </span>
             <img
               src={HeroImg}
-              className=" object-cover transition-all duration-500 ease-in-out animate-floating rounded-xl"
+              className=" object-cover transition-all duration-500 ease-in-out animate-floating rounded-xl xs:ml-[2rem] sm:ml-0 "
             />
           </div>
 
-          <div className="hidden sm:flex items-center  justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500">
+          <div className="hidden md:flex items-center  justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500">
             <ParcelEstimator />
           </div>
         </div>
         {/* Scrollable Content */}
         <div className="flex flex-col space-y-8 mt-20 ">
-          <div className="w-full bg-[#f7fbf8] flex items-center justify-around p-4 font-medium text-xl">
-            <div className="text-[#0a150f] flex items-center gap-[10rem]  rounded-xl p-2">
+          <div className="w-full bg-[#f7fbf8] flex  items-center justify-around p-4 font-medium text-xl">
+            <div className="text-[#0a150f] sm:flex items-center sm:gap-[10rem]  rounded-xl p-2 xs:grid xs:grid-cols-3 xs:gap-4 ">
               <div className="flex items-center gap-2 hover:shadow-[0px_4px_20px_4px_rgba(18,28,135,0.7)] hover:bg-[#121c87b3] rounded-xl px-3 py-1 transition-all duration-500 ease-in-out">
                 <ReactCountryFlag countryCode="RO" svg /> Romania
               </div>
@@ -62,8 +62,8 @@ function App() {
             </div>
           </div>
 
-          <div className="w-[15rem] h-[50vh] bg-red-300 flex items-center justify-center">
-            <Colors />
+          <div className="xs:block sm:hidden">
+            <ParcelEstimator />
           </div>
 
           <div className="w-[15rem] h-[50vh] bg-green-300 flex items-center justify-center">

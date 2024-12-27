@@ -48,7 +48,7 @@ function ParcelEstimator() {
   // Get user's current location
 
   return (
-    <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[25rem] mx-auto hidden md:block">
+    <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[25rem] mx-auto ">
       <h1 className="text-2xl font-bold mb-4 text-center ">Estimator Tarif</h1>
 
       {/* Form Fields */}
