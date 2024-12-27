@@ -18,7 +18,7 @@ function App() {
           <Header />
         </div>
         <div className="flex justify-around items-center xs:scale-50 sm:scale-100 transition-all duration-500 ease-in-out xs:mr-[20rem] md:mr-0">
-          <div className="w-[35rem] ml-[5rem] xs:mt-0 sm:mt-[5rem] sm:space-y-12 xs:space-y-24 xs:scale-[1.3] sm:scale-100">
+          <div className="w-[35rem] xs:ml-[2rem] sm:ml-[5rem] xs:mt-0 sm:mt-[5rem] sm:space-y-12 xs:space-y-24 xs:scale-[1.1] sm:scale-100">
             <span className="text-[#0a150f] text-3xl bg-[#f7fbf8] p-2 rounded-xl text-nowrap font-black ">
               Transport de colete, mai simplu mai usor
             </span>
@@ -62,7 +62,7 @@ function App() {
             </div>
           </div>
 
-          <div className="xs:block sm:hidden">
+          <div className="xs:block sm:hidden xs:scale-[1] sm:scale-100">
             <ParcelEstimator />
           </div>
 
