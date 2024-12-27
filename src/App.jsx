@@ -62,7 +62,7 @@ function App() {
             </div>
           </div>
 
-          <div className="xs:block sm:hidden xs:scale-[1] sm:scale-100">
+          <div className="xs:block sm:hidden xs:scale-[0.8] sm:scale-100">
             <ParcelEstimator />
           </div>
 
