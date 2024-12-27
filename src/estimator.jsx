@@ -1,108 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
-import { useMap } from "react-leaflet";
-import ReactCountryFlag from "react-country-flag";
+import React, { useState, useEffect, useRef } from "react";
 
-// Parcel Estimator Component
 function ParcelEstimator() {
-  // State for inputs
+  // State variables
   const [weight, setWeight] = useState(0);
   const [length, setLength] = useState(0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [distance, setDistance] = useState(0);
   const [cost, setCost] = useState(0);
   const [currency, setCurrency] = useState("RON");
-  const [startPoint, setStartPoint] = useState(null);
-  const [endPoint, setEndPoint] = useState(null);
+  const [convertedCost, setConvertedCost] = useState(0);
+  const suggestionsRef = useRef(null);
+
+  // Fetch exchange rates
+  const fetchExchangeRate = async (fromCurrency, toCurrency) => {
+    const response = await fetch(
+      `https://api.exchangerate-api.com/v4/latest/${fromCurrency}`
+    );
+    const data = await response.json();
+    return data.rates[toCurrency];
+  };
+
+  useEffect(() => {
+    const convertCurrency = async () => {
+      if (currency !== "RON") {
+        const rate = await fetchExchangeRate("RON", currency);
+        setConvertedCost((cost * rate).toFixed(2));
+      } else {
+        setConvertedCost(cost);
+      }
+    };
+    convertCurrency();
+  }, [cost, currency]);
+
+  // Handle address selection
 
   // Calculation function
   const calculateCost = () => {
     const volume = length * width * height;
-    const baseRate = 5; // Base rate in currency unit
-    const weightFactor = 0.5; // Rate per kg
-    const distanceFactor = 0.1; // Rate per km
-    const volumeFactor = 0.002; // Rate per cubic cm
+    const baseRate = 5;
+    const weightFactor = 0.5;
+    const volumeFactor = 0.002;
 
-    const totalCost =
-      baseRate +
-      weight * weightFactor +
-      distance * distanceFactor +
-      volume * volumeFactor;
-
+    const totalCost = baseRate + weight * weightFactor + volume * volumeFactor;
     setCost(totalCost.toFixed(2));
   };
 
-  // Function to calculate distance between points
-  const calculateDistance = () => {
-    if (startPoint && endPoint) {
-      const lat1 = startPoint.lat;
-      const lon1 = startPoint.lng;
-      const lat2 = endPoint.lat;
-      const lon2 = endPoint.lng;
-      const R = 6371; // Radius of the Earth in km
-      const dLat = ((lat2 - lat1) * Math.PI) / 180;
-      const dLon = ((lon2 - lon1) * Math.PI) / 180;
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((lat1 * Math.PI) / 180) *
-          Math.cos((lat2 * Math.PI) / 180) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = R * c;
-      setDistance(distance.toFixed(2));
-    }
-  };
-
-  // Map Click Handler
-  function MapClickHandler({ setPoint }) {
-    useMapEvents({
-      click(e) {
-        setPoint(e.latlng);
-      },
-    });
-    return null;
-  }
-
-  // Map Search Feature
-  function MapWithSearch({ setPoint }) {
-    const map = useMap();
-
-    useEffect(() => {
-      const provider = new OpenStreetMapProvider();
-      const searchControl = new GeoSearchControl({
-        provider,
-        style: "bar",
-        showMarker: true,
-        showPopup: false,
-        marker: {
-          draggable: false,
-        },
-      });
-
-      map.addControl(searchControl);
-
-      // Listen to search results and update state
-      map.on("geosearch/showlocation", (result) => {
-        setPoint(result.location); // Set the location as the selected point
-      });
-
-      return () => map.removeControl(searchControl);
-    }, [map, setPoint]);
-
-    return null;
-  }
+  // Get user's current location
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Estimator Pret</h1>
-      <div className="flex space-x-4 pb-5">
-        <div className="flex flex-col space-y-2 pt-5">
-          {/* Weight Input */}
-          <label className="block mb-2">
+    <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[30rem] mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-center ">Estimator Pret</h1>
+
+      {/* Form Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
+          <label className="block">
             Greutate (kg):
             <input
               type="number"
@@ -111,9 +63,7 @@ function ParcelEstimator() {
               className="w-full p-2 border rounded"
             />
           </label>
-
-          {/* Dimensions Inputs */}
-          <label className="block mb-2">
+          <label className="block">
             Lungime (cm):
             <input
               type="number"
@@ -122,7 +72,7 @@ function ParcelEstimator() {
               className="w-full p-2 border rounded"
             />
           </label>
-          <label className="block mb-2">
+          <label className="block">
             Latime (cm):
             <input
               type="number"
@@ -131,42 +81,47 @@ function ParcelEstimator() {
               className="w-full p-2 border rounded"
             />
           </label>
+          <label className="block">
+            Inaltime (cm):
+            <input
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(parseFloat(e.target.value))}
+              className="w-full p-2 border rounded"
+            />
+          </label>
         </div>
 
-        <div className="flex flex-col space-y-2 pt-5">
-          <label className="block mb-2">
+        <div className="space-y-4">
+          <label className="block">
             Valuta:
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
               className="w-full p-2 border rounded"
             >
-              <option value="USD">
-                USD <ReactCountryFlag countryCode="US" svg />
-              </option>
-              <option value="GBP">
-                GBP <ReactCountryFlag countryCode="GB" svg />
-              </option>
-              <option value="EUR">
-                EUR <ReactCountryFlag countryCode="EU" svg />
-              </option>
-              <option value="RON">
-                RON <ReactCountryFlag countryCode="RO" svg />
-              </option>
+              <option value="USD">USD</option>
+              <option value="GBP">GBP</option>
+              <option value="EUR">EUR</option>
+              <option value="RON">RON</option>
             </select>
           </label>
+
+          <div className="invisible h-[5.7rem]"></div>
+          <button
+            onClick={calculateCost}
+            className="w-full bg-[#5669C1] text-[#0a150f] p-2 rounded hover:bg-[#949494] transition-colors duration-300"
+          >
+            Calculeaza Pretul
+          </button>
+
+          <div className="p-4 bg-[#f7fbf8] rounded-lg shadow">
+            <p className="text-lg font-semibold">
+              Pret: {convertedCost} {currency}
+            </p>
+          </div>
         </div>
       </div>
-
-      {/* Map */}
-      <MapContainer center={[45, 25]} zoom={6} className="h-64 w-full mb-4">
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MapWithSearch setPoint={setStartPoint} />
-        {startPoint && <Marker position={startPoint}></Marker>}
-        {endPoint && <Marker position={endPoint}></Marker>}
-        <MapClickHandler setPoint={setStartPoint} />
-        <MapClickHandler setPoint={setEndPoint} />
-      </MapContainer>
     </div>
   );
 }
