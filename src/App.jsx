@@ -14,24 +14,21 @@ function App() {
         className="flex-col w-full min-h-screen bg-gradient-to-tr from-purple-600 to-fuchsia-600 estimator-background"
       >
         {/* Sticky Header */}
-        <div className="sticky top-5 z-50 w-full justify-center flex">
+        <div className="sticky top-5 z-50 xs:scale-[0.6] justify-center flex md:scale-100">
           <Header />
         </div>
-        <div className="flex justify-around items-center sm:scale-50 md:scale-100 transition-all duration-500 ease-in-out">
-          <div className="w-[35rem] mt-[6rem] ml-[5rem] space-y-12">
+        <div className="flex justify-around items-center xs:scale-50 sm:scale-100 transition-all duration-500 ease-in-out xs:mr-[20rem] md:mr-0">
+          <div className="w-[35rem] ml-[5rem] xs:mt-0 sm:mt-[5rem] space-y-12 ">
             <span className="text-[#0a150f] text-3xl bg-[#f7fbf8] p-2 rounded-xl text-nowrap font-black ">
               Transport de colete, mai simplu mai usor
             </span>
             <img
               src={HeroImg}
-              className=" object-cover transition-all duration-500 ease-in-out animate-floating  rounded-xl"
+              className=" object-cover transition-all duration-500 ease-in-out animate-floating rounded-xl"
             />
           </div>
 
-          <div
-            className="hidden  md:flex items-center  justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500
-"
-          >
+          <div className="hidden sm:flex items-center  justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500">
             <ParcelEstimator />
           </div>
         </div>
