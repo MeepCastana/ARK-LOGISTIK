@@ -24,8 +24,8 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className="hover:bg-[#5669C1]  hover:cursor-pointer transition-all duration-300 ease-in-out rounded-full p-2 px-4">
-        Despre Noi
+      <div className="hover:bg-[#5669C1] bg-[#767e9f] hover:cursor-pointer transition-all duration-300 ease-in-out rounded-full p-2 px-4 text-nowrap">
+        Trimite Colet
       </div>
     </div>
   );

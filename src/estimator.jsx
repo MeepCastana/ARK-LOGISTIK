@@ -48,19 +48,19 @@ function ParcelEstimator() {
   // Get user's current location
 
   return (
-    <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[30rem] mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center ">Estimator Pret</h1>
+    <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[25rem] mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-center ">Estimator Tarif</h1>
 
       {/* Form Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-4">
+      <div className="md:grid hidden md:grid-cols-2 gap-3 ">
+        <div className="space-y-2 ">
           <label className="block">
             Greutate (kg):
             <input
               type="number"
               value={weight}
               onChange={(e) => setWeight(parseFloat(e.target.value))}
-              className="w-full p-2 border rounded"
+              className="w-full p-1 border rounded"
             />
           </label>
           <label className="block">
@@ -69,7 +69,7 @@ function ParcelEstimator() {
               type="number"
               value={length}
               onChange={(e) => setLength(parseFloat(e.target.value))}
-              className="w-full p-2 border rounded"
+              className="w-full p-1 border rounded"
             />
           </label>
           <label className="block">
@@ -78,7 +78,7 @@ function ParcelEstimator() {
               type="number"
               value={width}
               onChange={(e) => setWidth(parseFloat(e.target.value))}
-              className="w-full p-2 border rounded"
+              className="w-full p-1 border rounded"
             />
           </label>
           <label className="block">
@@ -87,7 +87,7 @@ function ParcelEstimator() {
               type="number"
               value={height}
               onChange={(e) => setHeight(parseFloat(e.target.value))}
-              className="w-full p-2 border rounded"
+              className="w-full p-1 border rounded"
             />
           </label>
         </div>
@@ -98,7 +98,7 @@ function ParcelEstimator() {
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-1 border rounded"
             >
               <option value="USD">USD</option>
               <option value="GBP">GBP</option>
@@ -107,15 +107,15 @@ function ParcelEstimator() {
             </select>
           </label>
 
-          <div className="invisible h-[5.7rem]"></div>
+          <div className="invisible h-[4.3rem]"></div>
           <button
             onClick={calculateCost}
-            className="w-full bg-[#5669C1] text-[#0a150f] p-2 rounded hover:bg-[#949494] transition-colors duration-300"
+            className="w-full bg-[#5669C1] text-[#0a150f] p-1 rounded hover:bg-[#949494] transition-colors duration-300"
           >
             Calculeaza Pretul
           </button>
 
-          <div className="p-4 bg-[#f7fbf8] rounded-lg shadow">
+          <div className="p-2 bg-[#f7fbf8] rounded-lg shadow">
             <p className="text-lg font-semibold">
               Pret: {convertedCost} {currency}
             </p>

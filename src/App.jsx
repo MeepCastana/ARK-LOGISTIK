@@ -17,19 +17,19 @@ function App() {
         <div className="sticky top-5 z-50 w-full justify-center flex">
           <Header />
         </div>
-        <div className="flex justify-between items-center ">
-          <div className="w-[35rem] mt-[6rem] ml-[10rem] space-y-12">
+        <div className="flex justify-around items-center sm:scale-50 md:scale-100 transition-all duration-500 ease-in-out">
+          <div className="w-[35rem] mt-[6rem] ml-[5rem] space-y-12">
             <span className="text-[#0a150f] text-3xl bg-[#f7fbf8] p-2 rounded-xl text-nowrap font-black ">
               Transport de colete, mai simplu mai usor
             </span>
             <img
               src={HeroImg}
-              className=" object-cover hover:-translate-y-2 transition-all duration-500 ease-in-out animate-floating"
+              className=" object-cover transition-all duration-500 ease-in-out animate-floating  rounded-xl"
             />
           </div>
 
           <div
-            className="  flex items-center justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500
+            className="hidden  md:flex items-center  justify-center mt-[8rem] mr-[5rem] transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-zinc-500
 "
           >
             <ParcelEstimator />
