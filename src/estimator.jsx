@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 function ParcelEstimator() {
   // State variables
@@ -9,8 +9,8 @@ function ParcelEstimator() {
   const [cost, setCost] = useState(0);
   const [currency, setCurrency] = useState("RON");
   const [convertedCost, setConvertedCost] = useState(0);
+  const [selectedCost, setSelectedCost] = useState(0); // Cost for clicked item
 
-  // Fetch exchange rates
   // Fetch exchange rates
   const fetchExchangeRate = async (fromCurrency, toCurrency) => {
     try {
@@ -36,8 +36,8 @@ function ParcelEstimator() {
   // Currency conversion with approximation
   useEffect(() => {
     const convertCurrency = async () => {
-      // Default cost to 0 if invalid
-      const safeCost = parseFloat(cost) || 0;
+      // Use selectedCost if no custom cost is set
+      const safeCost = parseFloat(cost) || selectedCost || 0;
 
       if (currency !== "RON") {
         const rate = await fetchExchangeRate("RON", currency);
@@ -49,7 +49,7 @@ function ParcelEstimator() {
       }
     };
     convertCurrency();
-  }, [cost, currency]);
+  }, [cost, currency, selectedCost]);
 
   const calculateCost = () => {
     // Default values to prevent NaN errors
@@ -64,22 +64,33 @@ function ParcelEstimator() {
       return;
     }
 
-    const volume = safeLength * safeWidth * safeHeight;
-
     // Base rate calculation
-    let baseRate = safeWeight > 20 ? safeWeight * 9 : 180;
+    let baseRate = safeWeight <= 20 ? 180 : safeWeight * 9;
     const weightFactor = 0.5;
     const volumeFactor = 0.002;
+    const volume = safeLength * safeWidth * safeHeight;
 
     const totalCost =
       baseRate + safeWeight * weightFactor + volume * volumeFactor;
+
+    // Override selected cost if custom details are provided
+    setSelectedCost(0);
 
     // Round the final cost to 2 decimals
     setCost(totalCost.toFixed(2));
   };
 
-  // Get user's current location
+  const itemCosts = {
+    Troller: 200, // Example cost in RON
+    Document: 50, // Example cost in RON
+    Geanta: 150, // Example cost in RON
+  };
 
+  // Handle item selection and set cost
+  const handleItemClick = (item) => {
+    setSelectedCost(itemCosts[item]); // Update cost based on clicked item
+    setCost(0); // Reset custom cost to prevent conflicts
+  };
   return (
     <div className="p-4 bg-[#f7fbf8] rounded-xl shadow-lg w-[25rem] mx-auto  ">
       <h1 className="text-2xl font-bold mb-4 text-center text-[#374151]">
@@ -143,15 +154,24 @@ function ParcelEstimator() {
           </label>
 
           <div className="flex justify-between">
-            <div className="p-2 rounded-lg bg-[#dfe0df] text-center">
+            <div
+              className="p-2 rounded-lg bg-[#dfe0df] text-center"
+              onClick={() => handleItemClick("Troller")}
+            >
               <div>Troller</div>
               <div className="text-sm text-gray-600 mt-1">70 x 40 x 30 cm</div>
             </div>
-            <div className="p-2 rounded-lg bg-[#dfe0df] text-center">
+            <div
+              className="p-2 rounded-lg bg-[#dfe0df] text-center"
+              onClick={() => handleItemClick("Document")}
+            >
               <div>Document</div>
               <div className="text-sm text-gray-600 mt-1">30 x 20 x 5 cm</div>
             </div>
-            <div className="p-2 rounded-lg bg-[#dfe0df] text-center">
+            <div
+              className="p-2 rounded-lg bg-[#dfe0df] text-center"
+              onClick={() => handleItemClick("Geanta")}
+            >
               <div>Geanta</div>
               <div className="text-sm text-gray-600 mt-1">50 x 30 x 20 cm</div>
             </div>

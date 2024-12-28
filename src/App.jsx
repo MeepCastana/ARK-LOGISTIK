@@ -46,7 +46,7 @@ function App() {
         {/* Scrollable Content */}
         <div className="flex flex-col space-y-5 mt-20 ">
           {/* Shipping Destinations */}
-          <div className="w-full bg-[#f7fbf8] flex  items-center justify-between p-3 font-medium sm:text-xl xs:text-md">
+          <div className="w-full bg-[#f7fbf8] flex  items-center justify-center p-3 font-medium sm:text-xl xs:text-md">
             <div className="text-[#374151] sm:flex items-center sm:gap-[10rem]  rounded-xl p-2 xs:grid xs:grid-cols-3 xs:gap-4 ">
               <div className="flex items-center w rounded-xl px-3 py-1 transition-all duration-500 ease-in-out gap-2">
                 <ReactCountryFlag countryCode="RO" svg /> Romania
@@ -87,7 +87,7 @@ function App() {
           </div> */}
           {/* Info Cards */}
 
-          <div className="md:flex xs:flex-col items-center xs:space-y-10 sm:space-y-0 gap-4 xs:scale-75 sm:scale-100 ">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 xs:space-y-10 sm:space-y-0 xs:scale-75 sm:scale-100  ">
             <div className="flex flex-col rounded-2xl w-96  shadow-xl xs:-mt-[10rem] md:-mt-0 justify-center items-center bg-[#1F2937] ">
               <figure className="flex justify-center items-center rounded-2xl w-[12rem] animate-floating">
                 <img
@@ -96,7 +96,7 @@ function App() {
                   className="rounded-t-2xl "
                 />
               </figure>
-              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full">
+              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full h-[15rem]">
                 <div className="text-2xl font-bold  text-center text-[#374151] pb-6">
                   Pret Standard
                 </div>
@@ -113,7 +113,7 @@ function App() {
               <figure className="flex justify-center items-center rounded-2xl w-[12rem] animate-floating">
                 <img src={Time} alt="Card Preview" className="rounded-t-2xl " />
               </figure>
-              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full">
+              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full h-[15rem] ">
                 <div className="text-2xl font-bold  text-center text-[#374151] pb-6">
                   Program prestabilit
                 </div>
@@ -135,7 +135,7 @@ function App() {
                   className="rounded-t-2xl "
                 />
               </figure>
-              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full">
+              <div className="flex flex-col p-9 bg-[#f7fbf8] rounded-b-2xl w-full h-[15rem]">
                 <div className="text-2xl font-bold  text-center text-[#374151] pb-6">
                   Ruta Fixa
                 </div>
